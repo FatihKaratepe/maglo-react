@@ -1,0 +1,1226 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "NodeLabs API",
+    "version": "2.0.0",
+    "description": "A production-ready, fully modular Node.js Express boilerplate.",
+    "license": {
+      "name": "MIT",
+      "url": "https://spdx.org/licenses/MIT.html"
+    },
+    "contact": {
+      "name": "Development Team",
+      "url": "https://example.com",
+      "email": "info@example.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://case.nodelabs.dev/api",
+      "description": "Development server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "FinancialSummary": {
+        "type": "object",
+        "properties": {
+          "totalBalance": {
+            "type": "object",
+            "properties": {
+              "amount": {
+                "type": "number",
+                "example": 125750.5
+              },
+              "currency": {
+                "type": "string",
+                "example": "TRY"
+              },
+              "change": {
+                "type": "object",
+                "properties": {
+                  "percentage": {
+                    "type": "number",
+                    "example": 12.5
+                  },
+                  "trend": {
+                    "type": "string",
+                    "enum": ["up", "down", "stable"],
+                    "example": "up"
+                  }
+                }
+              }
+            }
+          },
+          "totalExpense": {
+            "type": "object",
+            "properties": {
+              "amount": {
+                "type": "number",
+                "example": 45320.75
+              },
+              "currency": {
+                "type": "string",
+                "example": "TRY"
+              },
+              "change": {
+                "type": "object",
+                "properties": {
+                  "percentage": {
+                    "type": "number",
+                    "example": -8.3
+                  },
+                  "trend": {
+                    "type": "string",
+                    "example": "down"
+                  }
+                }
+              }
+            }
+          },
+          "totalSavings": {
+            "type": "object",
+            "properties": {
+              "amount": {
+                "type": "number",
+                "example": 80429.75
+              },
+              "currency": {
+                "type": "string",
+                "example": "TRY"
+              },
+              "change": {
+                "type": "object",
+                "properties": {
+                  "percentage": {
+                    "type": "number",
+                    "example": 15.2
+                  },
+                  "trend": {
+                    "type": "string",
+                    "example": "up"
+                  }
+                }
+              }
+            }
+          },
+          "lastUpdated": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "WorkingCapital": {
+        "type": "object",
+        "properties": {
+          "period": {
+            "type": "string",
+            "example": "last6Months"
+          },
+          "currency": {
+            "type": "string",
+            "example": "TRY"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "month": {
+                  "type": "string",
+                  "example": "Ocak"
+                },
+                "income": {
+                  "type": "number",
+                  "example": 65000
+                },
+                "expense": {
+                  "type": "number",
+                  "example": 42000
+                },
+                "net": {
+                  "type": "number",
+                  "example": 23000
+                }
+              }
+            }
+          },
+          "summary": {
+            "type": "object",
+            "properties": {
+              "totalIncome": {
+                "type": "number",
+                "example": 390000
+              },
+              "totalExpense": {
+                "type": "number",
+                "example": 252000
+              },
+              "netBalance": {
+                "type": "number",
+                "example": 138000
+              }
+            }
+          }
+        }
+      },
+      "Wallet": {
+        "type": "object",
+        "properties": {
+          "cards": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "card_001"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Maglo Gold Card"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": ["credit", "debit"],
+                  "example": "credit"
+                },
+                "cardNumber": {
+                  "type": "string",
+                  "example": "5495 7381 3759 2321",
+                  "description": "Full card number or masked number"
+                },
+                "bank": {
+                  "type": "string",
+                  "example": "Maglo | Universal Bank",
+                  "description": "Bank name with brand"
+                },
+                "network": {
+                  "type": "string",
+                  "enum": ["Visa", "Mastercard", "American Express"],
+                  "example": "Visa"
+                },
+                "expiryMonth": {
+                  "type": "integer",
+                  "example": 12
+                },
+                "expiryYear": {
+                  "type": "integer",
+                  "example": 2027
+                },
+                "color": {
+                  "type": "string",
+                  "example": "#000000",
+                  "description": "Card color in hex format"
+                },
+                "isDefault": {
+                  "type": "boolean",
+                  "example": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "RecentTransactions": {
+        "type": "object",
+        "properties": {
+          "transactions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "trx_001"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Transaction name (product/service name)",
+                  "example": "iPhone 13 Pro MAX"
+                },
+                "business": {
+                  "type": "string",
+                  "description": "Business/Company name",
+                  "example": "Apple Inc."
+                },
+                "image": {
+                  "type": "string",
+                  "description": "Business/Company logo URL",
+                  "example": "https://i.ibb.co/Nd4vxyg0/Turk-Telekom-Symbol.png"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "Transaction category",
+                  "example": "Mobile"
+                },
+                "amount": {
+                  "type": "number",
+                  "description": "Transaction amount (positive for income, negative for expense)",
+                  "example": -420.84
+                },
+                "currency": {
+                  "type": "string",
+                  "example": "TRY"
+                },
+                "date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "2025-10-06T10:30:00.000Z"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": ["completed", "pending", "failed"],
+                  "example": "completed"
+                }
+              }
+            }
+          },
+          "summary": {
+            "type": "object",
+            "properties": {
+              "totalIncome": {
+                "type": "number",
+                "example": 45000
+              },
+              "totalExpense": {
+                "type": "number",
+                "example": 12500
+              },
+              "count": {
+                "type": "number",
+                "example": 20
+              }
+            }
+          }
+        }
+      },
+      "ScheduledTransfers": {
+        "type": "object",
+        "properties": {
+          "transfers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "sch_001"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Recipient's full name",
+                  "example": "Saleh Ahmed"
+                },
+                "image": {
+                  "type": "string",
+                  "format": "url",
+                  "description": "URL of the recipient's avatar/profile picture (generated from UI Avatars)",
+                  "example": "https://ui-avatars.com/api/?name=Saleh+Ahmed&background=random&size=100"
+                },
+                "date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Scheduled date and time of the transfer",
+                  "example": "2022-04-28T11:00:00Z"
+                },
+                "amount": {
+                  "type": "number",
+                  "description": "Transfer amount (negative for outgoing)",
+                  "example": -435
+                },
+                "currency": {
+                  "type": "string",
+                  "description": "Currency symbol or code",
+                  "example": "$"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": ["scheduled", "processing", "completed", "cancelled"],
+                  "description": "Current status of the scheduled transfer",
+                  "example": "scheduled"
+                }
+              }
+            }
+          },
+          "summary": {
+            "type": "object",
+            "properties": {
+              "totalScheduledAmount": {
+                "type": "number",
+                "example": -2056
+              },
+              "count": {
+                "type": "integer",
+                "example": 5
+              }
+            }
+          }
+        }
+      },
+      "RegisterInput": {
+        "type": "object",
+        "required": ["fullName", "email", "password"],
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "description": "The user's full name.",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "The user's email address.",
+            "example": "user@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "The user's password (must be at least 8 characters, with uppercase, lowercase, and a number).",
+            "example": "Pa$w0rd123"
+          }
+        },
+        "description": "Note: The role field is NOT included in registration. All new users are automatically assigned the \"user\" role."
+      },
+      "LoginInput": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "The user's email address.",
+            "example": "user@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "The user's password.",
+            "example": "Pa$w0rd123"
+          }
+        }
+      },
+      "UserResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The user's unique identifier.",
+            "example": "60d0fe4f5311236168a109ca"
+          },
+          "fullName": {
+            "type": "string",
+            "description": "The user's full name.",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "The user's email address.",
+            "example": "user@example.com"
+          },
+          "role": {
+            "type": "string",
+            "description": "The user's role (automatically set to \"user\" on registration, not sent in request).",
+            "example": "user",
+            "enum": ["user", "admin"]
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "Whether the user's account is active.",
+            "example": true
+          },
+          "lastLoginAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time of the user's last login.",
+            "example": "2025-10-06T10:30:00.000Z"
+          },
+          "lastLoginIP": {
+            "type": "string",
+            "description": "The IP address of the user's last login.",
+            "example": "192.168.1.1"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date the user was created."
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date the user was last updated."
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/financial/summary": {
+      "get": {
+        "tags": ["Financial"],
+        "summary": "Get financial summary",
+        "description": "Returns total balance, total expenses, and total savings with change percentages.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Financial summary retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Financial summary retrieved successfully."
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/FinancialSummary"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Successful Response",
+                    "value": {
+                      "success": true,
+                      "message": "Financial summary retrieved successfully.",
+                      "data": {
+                        "totalBalance": {
+                          "amount": 125750.5,
+                          "currency": "TRY",
+                          "change": {
+                            "percentage": 12.5,
+                            "trend": "up"
+                          }
+                        },
+                        "totalExpense": {
+                          "amount": 45320.75,
+                          "currency": "TRY",
+                          "change": {
+                            "percentage": -8.3,
+                            "trend": "down"
+                          }
+                        },
+                        "totalSavings": {
+                          "amount": 80429.75,
+                          "currency": "TRY",
+                          "change": {
+                            "percentage": 15.2,
+                            "trend": "up"
+                          }
+                        },
+                        "lastUpdated": "2025-10-06T10:30:00.000Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "An access token is required for authentication."
+                    },
+                    "code": {
+                      "type": "string",
+                      "example": "TOKEN_MISSING"
+                    }
+                  }
+                },
+                "examples": {
+                  "missingToken": {
+                    "summary": "Missing Token",
+                    "value": {
+                      "success": false,
+                      "error": "Unauthorized",
+                      "message": "An access token is required for authentication.",
+                      "code": "TOKEN_MISSING"
+                    }
+                  },
+                  "expiredToken": {
+                    "summary": "Expired Token",
+                    "value": {
+                      "success": false,
+                      "error": "Unauthorized",
+                      "message": "Your session has expired. Please log in again.",
+                      "code": "TOKEN_EXPIRED"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "InternalServerError"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "An unexpected error occurred on the server."
+                    },
+                    "code": {
+                      "type": "string",
+                      "example": "UNEXPECTED_ERROR"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/financial/working-capital": {
+      "get": {
+        "tags": ["Financial"],
+        "summary": "Get working capital data",
+        "description": "Returns income and expense data for the last 6 months for chart visualization.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Working capital data retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Working capital data retrieved successfully."
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/WorkingCapital"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Missing or invalid token."
+          }
+        }
+      }
+    },
+    "/financial/wallet": {
+      "get": {
+        "tags": ["Financial"],
+        "summary": "Get wallet cards",
+        "description": "Returns list of credit/debit cards.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Wallet cards retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Wallet cards retrieved successfully."
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Wallet"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Missing or invalid token."
+          }
+        }
+      }
+    },
+    "/financial/transactions/recent": {
+      "get": {
+        "tags": ["Financial"],
+        "summary": "Get recent transactions",
+        "description": "Returns list of recent financial transactions.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "minimum": 1,
+              "maximum": 100
+            },
+            "description": "Number of transactions to return (default 20)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Recent transactions retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Recent transactions retrieved successfully."
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/RecentTransactions"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Successful Response",
+                    "value": {
+                      "success": true,
+                      "message": "Recent transactions retrieved successfully.",
+                      "data": {
+                        "transactions": [
+                          {
+                            "id": "trx_001",
+                            "name": "iPhone 13 Pro MAX",
+                            "business": "Apple Inc.",
+                            "image": "https://i.ibb.co/Apple-Logo.png",
+                            "type": "Mobile",
+                            "amount": -420.84,
+                            "currency": "TRY",
+                            "date": "2025-10-06T10:30:00.000Z",
+                            "status": "completed"
+                          },
+                          {
+                            "id": "trx_002",
+                            "name": "Netflix Subscription",
+                            "business": "Netflix",
+                            "image": "https://i.ibb.co/Netflix-Logo.png",
+                            "type": "Entertainment",
+                            "amount": -100,
+                            "currency": "TRY",
+                            "date": "2025-10-06T04:30:00.000Z",
+                            "status": "completed"
+                          },
+                          {
+                            "id": "trx_003",
+                            "name": "Figma Subscription",
+                            "business": "Figma Inc.",
+                            "image": "https://i.ibb.co/Figma-Logo.png",
+                            "type": "Software",
+                            "amount": -244.2,
+                            "currency": "TRY",
+                            "date": "2025-10-05T22:30:00.000Z",
+                            "status": "completed"
+                          },
+                          {
+                            "id": "trx_004",
+                            "name": "Monthly Salary",
+                            "business": "Tech Corp Ltd.",
+                            "image": "https://i.ibb.co/Company-Logo.png",
+                            "type": "Salary",
+                            "amount": 45000,
+                            "currency": "TRY",
+                            "date": "2025-10-05T16:30:00.000Z",
+                            "status": "completed"
+                          }
+                        ],
+                        "summary": {
+                          "totalIncome": 45000,
+                          "totalExpense": 765.04,
+                          "count": 4
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Missing or invalid token."
+          }
+        }
+      }
+    },
+    "/financial/transfers/scheduled": {
+      "get": {
+        "tags": ["Financial"],
+        "summary": "Get scheduled transfers",
+        "description": "Returns list of upcoming scheduled transfers with recipient details.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scheduled transfers retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Scheduled transfers retrieved successfully."
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/ScheduledTransfers"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Missing or invalid token."
+          }
+        }
+      }
+    },
+    "/users/register": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Register a new user",
+        "description": "Creates a new user account with role automatically set to \"user\".",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User registered successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User registered successfully."
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "60d0fe4f5311236168a109ca"
+                        },
+                        "fullName": {
+                          "type": "string",
+                          "example": "John Doe"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "user@example.com"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict - User with that email already exists."
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Authenticate a user",
+        "description": "Logs in a user and returns an access token and a refresh token (in a cookie).",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginInput"
+              },
+              "examples": {
+                "validLogin": {
+                  "summary": "Valid Login",
+                  "value": {
+                    "email": "user@example.com",
+                    "password": "Pa$w0rd123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Login successful."
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "user": {
+                          "$ref": "#/components/schemas/UserResponse"
+                        },
+                        "accessToken": {
+                          "type": "string",
+                          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Successful Login",
+                    "value": {
+                      "success": true,
+                      "message": "Login successful.",
+                      "data": {
+                        "user": {
+                          "id": "60d0fe4f5311236168a109ca",
+                          "fullName": "John Doe",
+                          "email": "user@example.com",
+                          "role": "user",
+                          "isActive": true,
+                          "lastLoginAt": "2025-10-06T10:30:00.000Z",
+                          "lastLoginIP": "192.168.1.1",
+                          "createdAt": "2025-01-15T08:00:00.000Z",
+                          "updatedAt": "2025-10-06T10:30:00.000Z"
+                        },
+                        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZDBmZTRmNTMxMTIzNjE2OGExMDljYSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzI4MjE0MjAwLCJleHAiOjE3Mjg4MTkwMDB9.example"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Missing fields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "BadRequest"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Email and password are required."
+                    },
+                    "code": {
+                      "type": "string",
+                      "example": "INVALID_INPUT"
+                    }
+                  }
+                },
+                "examples": {
+                  "missingFields": {
+                    "summary": "Missing Fields",
+                    "value": {
+                      "success": false,
+                      "error": "BadRequest",
+                      "message": "Email and password are required.",
+                      "code": "INVALID_INPUT"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid credentials.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid email or password."
+                    },
+                    "code": {
+                      "type": "string",
+                      "example": "INVALID_CREDENTIALS"
+                    }
+                  }
+                },
+                "examples": {
+                  "invalidCredentials": {
+                    "summary": "Invalid Credentials",
+                    "value": {
+                      "success": false,
+                      "error": "Unauthorized",
+                      "message": "Invalid email or password.",
+                      "code": "INVALID_CREDENTIALS"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - Account deactivated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Forbidden"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Your account has been deactivated."
+                    },
+                    "code": {
+                      "type": "string",
+                      "example": "ACCOUNT_DEACTIVATED"
+                    }
+                  }
+                },
+                "examples": {
+                  "deactivated": {
+                    "summary": "Account Deactivated",
+                    "value": {
+                      "success": false,
+                      "error": "Forbidden",
+                      "message": "Your account has been deactivated.",
+                      "code": "ACCOUNT_DEACTIVATED"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests - Rate limit exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Too Many Requests"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Too many authentication attempts from this IP, please try again after 15 minutes."
+                    }
+                  }
+                },
+                "examples": {
+                  "rateLimitExceeded": {
+                    "summary": "Rate Limit Exceeded",
+                    "value": {
+                      "success": false,
+                      "error": "Too Many Requests",
+                      "message": "Too many authentication attempts from this IP, please try again after 15 minutes."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/logout": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Log out the user",
+        "description": "Clears the refresh token cookie, effectively logging the user out.",
+        "responses": {
+          "200": {
+            "description": "Logged out successfully."
+          }
+        }
+      }
+    },
+    "/users/refresh-token": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Refresh the access token",
+        "description": "Uses the httpOnly refresh token cookie to issue a new access token.",
+        "responses": {
+          "200": {
+            "description": "Access token refreshed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "accessToken": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing refresh token."
+          }
+        }
+      }
+    },
+    "/users/profile": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get current user's profile",
+        "description": "Retrieves the profile information of the currently authenticated user.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User profile retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Missing or invalid token."
+          },
+          "404": {
+            "description": "Not Found - User not found."
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Financial",
+      "description": "Financial dashboard data endpoints (Mock Data)"
+    },
+    {
+      "name": "User",
+      "description": "User management and authentication endpoints."
+    }
+  ]
+}
