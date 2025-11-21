@@ -4,10 +4,11 @@ import { useNavigate } from 'react-router-dom';
 
 import { Layout } from '@/layouts';
 import type { IJwtPayload } from '@/types';
+import { TOKEN_NAME } from '@/helpers';
 
 export const AuthMiddleware = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
-  const token = localStorage.getItem('magloAuthToken');
+  const token = localStorage.getItem(TOKEN_NAME);
 
   useEffect(() => {
     if (!token) {
@@ -15,14 +16,17 @@ export const AuthMiddleware = ({ children }: { children: React.ReactNode }) => {
       return;
     }
     try {
-      const decodedToken: IJwtPayload = jwtDecode(token);
+      const decodedToken: any = jwtDecode(token);
       const currentTime = Math.floor(Date.now() / 1000);
+      console.log('exp',decodedToken.exp);
+      console.log('currentTime', currentTime);
+      
       if (decodedToken.exp < currentTime) {
-        localStorage.removeItem('magloAuthToken');
+        localStorage.removeItem(TOKEN_NAME);
         navigate('/login');
       }
     } catch {
-      localStorage.removeItem('magloAuthToken');
+      localStorage.removeItem(TOKEN_NAME);
       navigate('/login');
     }
   }, [token, navigate]);

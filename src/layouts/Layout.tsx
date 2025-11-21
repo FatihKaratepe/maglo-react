@@ -1,3 +1,5 @@
+import { Sidebar } from "./components";
+
 interface ILayoutProps {
   children: React.ReactNode;
 }
@@ -5,7 +7,8 @@ interface ILayoutProps {
 export const Layout: React.FC<ILayoutProps> = ({ children }) => {
   return (
     <div>
-      <aside></aside>
+      <Sidebar/>
+      
       <main>{children}</main>
     </div>
   );

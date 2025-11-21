@@ -1,11 +1,5 @@
 @import 'tailwindcss';
 
-@layer components {
-  .maglo-input {
-    @apply border-solid border border-gray-5 text-sm font-medium text-text-3 pl-5 pt-[15px] pr-[25px] pb-4 rounded-[10px] focus:outline-0;
-  }
-}
-
 @theme {
   --font-sans: 'Kumbh Sans', sans-serif;
 
@@ -20,4 +14,54 @@
   --color-gray-2: #f8f8f8;
   --color-gray-3: #f5f5f5;
   --color-gray-5: #f2f2f2;
+
+  --lead-100: 100%;
+}
+
+@utility leading-full {
+  line-height: var(--lead-100);
+}
+
+@layer components {
+  .maglo-input {
+    @apply border border-gray-5 text-sm font-medium text-text-3 pl-5 pt-[15px] pr-[25px] pb-4 rounded-[10px] focus:outline-0 leading-[15px];
+  }
+
+  .primary-button {
+    @apply bg-primary border border-primary text-text-1 text-base py-[15px] px-5 rounded-[10px] cursor-pointer font-semibold leading-none;
+  }
+
+  .secondary-button {
+    @apply bg-white border border-gray-3 text-text-3 text-base py-3 px-5 rounded-[10px] cursor-pointer font-semibold leading-none;
+  }
+
+  .title-1 {
+    @apply text-text-1 text-3xl font-semibold leading-none;
+  }
+  .subtitle-1 {
+    @apply text-text-3 text-base leading-none font-normal;
+  }
+  .title-2 {
+    @apply text-text-1 text-[25px] font-semibold leading-[26px];
+  }
+  button {
+    @apply disabled:cursor-not-allowed;
+  }
+
+  .primary-link {
+    @apply text-black relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 35px;
+      top: calc(100% + 7px);
+      left: calc(50% - 30px);
+      border: 3px solid transparent;
+      border-top-color: var(--color-primary);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+  }
 }
