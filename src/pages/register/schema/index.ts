@@ -1,8 +1,8 @@
 import type { RegisterInput } from '@/apis';
-import { zodSchema } from '@/helpers';
+import { ZodSchema } from '@/helpers';
 import { z } from 'zod';
 
-export const RegisterSchema = zodSchema<RegisterInput>().object({
+export const RegisterSchema = ZodSchema<RegisterInput>().object({
   fullName: z.string('Full Name is required.'),
   email: z.email({
     error: (iss) => (iss.input === undefined ? 'Email is required.' : 'Enter a valid email.'),
