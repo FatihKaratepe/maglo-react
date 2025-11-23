@@ -1,9 +1,48 @@
-export const Sidebar: React.FC = () => {
+import { MagloLogo } from '@/assets';
+import { HelpIcon, LogoutIcon } from '@/components/Icons';
+import { UserRoutes } from '@/routes';
+import type { FC } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
+import { useLogout } from '../api';
+
+export const Sidebar: FC = () => {
+  const location = useLocation();
+  const { mutate: logoutMutate } = useLogout();
+
+  const handleLogout = () => {
+    logoutMutate(undefined);
+  };
+
   return (
-    <aside className="h-screen bg-gray-1">
-      <div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error unde rerum excepturi tempore ipsam ipsum, in
-        officiis, vero, esse nam ducimus? Veritatis placeat corporis sunt tempora rem blanditiis ipsa. Reiciendis!
+    <aside className="h-screen bg-gray-1 pt-[30px] pb-[70px] px-[25px]">
+      <div className="flex flex-col h-full gap-10">
+        <div>
+          <img src={MagloLogo} />
+        </div>
+        <div className="h-full flex flex-col justify-between">
+          <ul className="nav-menu">
+            {UserRoutes.map((x) => (
+              <li key={x.path}>
+                <NavLink to={x.path} className={location.pathname === x.path ? 'active' : ''}>
+                  {x.icon} {x.title}
+                </NavLink>
+              </li>
+            ))}
+            <li></li>
+          </ul>
+          <ul className="nav-menu">
+            <li>
+              <button>
+                <HelpIcon /> Help
+              </button>
+            </li>
+            <li>
+              <button onClick={handleLogout}>
+                <LogoutIcon /> Logout
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
     </aside>
   );

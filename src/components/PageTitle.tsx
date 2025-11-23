@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, type FC } from 'react';
 import { useLocation } from 'react-router-dom';
 
 interface IPageTitleProps {
   title: string;
 }
 
-export const PageTitle: React.FC<IPageTitleProps> = ({ title }) => {
+export const PageTitle: FC<IPageTitleProps> = ({ title }) => {
   const location = useLocation();
 
   useEffect(() => {
@@ -14,4 +14,3 @@ export const PageTitle: React.FC<IPageTitleProps> = ({ title }) => {
 
   return null;
 };
-

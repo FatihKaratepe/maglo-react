@@ -1,29 +1,43 @@
 import type { RegisterInput } from '@/apis';
 import { GoogleLogo, LoginBg, MagloLogo } from '@/assets';
 import { FormField, Input } from '@/components';
+import { SpinnerIcon } from '@/components/Icons';
+import { getToken } from '@/helpers';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useRegister } from './api';
 import { RegisterSchema } from './schema';
 
 export default function Register() {
+  const token = getToken();
+  const navigate = useNavigate();
+
   const { control, handleSubmit } = useForm<RegisterInput>({
     resolver: zodResolver(RegisterSchema),
     mode: 'onSubmit',
   });
 
-  const { mutate: registerMutate } = useRegister();
+  const { mutate: registerMutate, isPending, isSuccess } = useRegister();
 
   const onSubmit = (data: RegisterInput) => {
     registerMutate({ registerInput: data });
   };
 
+  const disableControl = useMemo(() => {
+    return isPending || isSuccess;
+  }, [isPending, isSuccess]);
+
+  useEffect(() => {
+    if (token) navigate('/');
+  });
+
   return (
     <section className="grid grid-cols-[17fr_15fr]">
       <div className="pt-10">
-        <div className="flex flex-col max-w-[404px] mx-auto gap-[157.5px]">
-          <div>
+        <div className="flex flex-col max-w-[404px] mx-auto gap-[157.5px] h-full justify-center">
+          <div className="fixed top-10">
             <img src={MagloLogo} alt="Maglo Logo" />
           </div>
 
@@ -74,16 +88,27 @@ export default function Register() {
                 )}
               />
               <div className="flex flex-col mt-2.5 gap-[15px]">
-                <button className="primary-button" type="submit">
+                <button className="primary-button" type="submit" disabled={disableControl}>
                   Create Account
+                  {disableControl && <SpinnerIcon className="w-4 h-4" />}
                 </button>
-                <button className="secondary-button flex items-center justify-center gap-2.5" type="button">
+                <button
+                  className="secondary-button flex items-center justify-center gap-2.5"
+                  type="button"
+                  disabled={disableControl}
+                >
                   <img src={GoogleLogo} alt="Maglo Logo" />
                   Sign up with Google
                 </button>
                 <p className="text-center text-sm font-normal leading-none text-text-2 mt-2.5">
                   Already have an account?{' '}
-                  <NavLink className="primary-link" to={'/login'}>
+                  <NavLink
+                    className={`primary-link ${disableControl ? 'cursor-not-allowed' : ''}`}
+                    to={'/login'}
+                    onClick={(e) => {
+                      if (disableControl) e.preventDefault();
+                    }}
+                  >
                     Sign in
                   </NavLink>
                 </p>

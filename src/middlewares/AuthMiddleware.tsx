@@ -1,12 +1,17 @@
 import { jwtDecode } from 'jwt-decode';
-import { useEffect } from 'react';
+import { useEffect, type FC, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Layout } from '@/layouts';
-import type { IJwtPayload } from '@/types';
+import { PageTitle } from '@/components';
 import { TOKEN_NAME } from '@/helpers';
+import { Layout } from '@/layouts';
 
-export const AuthMiddleware = ({ children }: { children: React.ReactNode }) => {
+interface IAuthMiddlewareProps {
+  children: ReactNode;
+  title: string;
+}
+
+export const AuthMiddleware: FC<IAuthMiddlewareProps> = ({ children, title }) => {
   const navigate = useNavigate();
   const token = localStorage.getItem(TOKEN_NAME);
 
@@ -18,9 +23,9 @@ export const AuthMiddleware = ({ children }: { children: React.ReactNode }) => {
     try {
       const decodedToken: any = jwtDecode(token);
       const currentTime = Math.floor(Date.now() / 1000);
-      console.log('exp',decodedToken.exp);
+      console.log('exp', decodedToken.exp);
       console.log('currentTime', currentTime);
-      
+
       if (decodedToken.exp < currentTime) {
         localStorage.removeItem(TOKEN_NAME);
         navigate('/login');
@@ -31,5 +36,10 @@ export const AuthMiddleware = ({ children }: { children: React.ReactNode }) => {
     }
   }, [token, navigate]);
 
-  return token ? <Layout>{children}</Layout> : null;
+  return token ? (
+    <Layout>
+      <PageTitle title={`${title} | Maglo`} />
+      {children}
+    </Layout>
+  ) : null;
 };

@@ -1,9 +1,10 @@
+import { setupAxiosInterceptors } from '@/helpers';
+import { Locale } from '@/utils';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { App } from './App';
-import { setupAxiosInterceptors } from './helpers';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,6 +20,7 @@ export const queryClient = new QueryClient({
 });
 
 setupAxiosInterceptors();
+document.documentElement.lang = Locale();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
