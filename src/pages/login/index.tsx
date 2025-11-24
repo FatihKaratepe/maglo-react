@@ -29,9 +29,7 @@ export default function Login() {
     loginMutate({ loginInput: data });
   };
 
-  const disableControl = useMemo(() => {
-    return isPending || isSuccess;
-  }, [isPending, isSuccess]);
+  const disableControl = useMemo(() => isPending || isSuccess, [isPending, isSuccess]);
 
   useEffect(() => {
     if (token) navigate('/');

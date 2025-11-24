@@ -14,6 +14,10 @@
   --color-gray-2: #f8f8f8;
   --color-gray-3: #f5f5f5;
   --color-gray-5: #f2f2f2;
+  --color-gray-6: #ebe8e8;
+  --color-gray-7: #4e5257;
+
+  --color-key-black: #363a3f;
 
   --color-neutral-quaternary: oklch(37.3% 0.034 259.733);
 
@@ -45,6 +49,9 @@
   }
   .title-2 {
     @apply text-text-1 text-[25px] font-semibold leading-[26px];
+  }
+  .title-3 {
+    @apply text-text-1 text-[18px] font-semibold leading-[19px];
   }
   button {
     @apply disabled:cursor-not-allowed;
@@ -113,5 +120,37 @@
     100% {
       transform: translateX(100%);
     }
+  }
+
+  .summary-card {
+    @apply flex items-center py-6 px-5 gap-[15px] rounded-[10px] bg-gray-2 transition-colors duration-300;
+
+    .summary-card-icon {
+      @apply w-[42px] aspect-square flex items-center justify-center rounded-full text-key-black bg-gray-6 transition-colors duration-300;
+    }
+    .summary-card-title {
+      @apply text-sm text-text-2 font-normal leading-[15px] transition-colors duration-300;
+    }
+    .summary-card-amount {
+      @apply text-2xl text-text-1 font-bold leading-[25px] transition-colors duration-300;
+    }
+
+    &:hover {
+      @apply bg-key-black;
+
+      .summary-card-icon {
+        @apply bg-gray-7 text-primary;
+      }
+      .summary-card-title {
+        @apply text-text-2;
+      }
+      .summary-card-amount {
+        @apply text-white;
+      }
+    }
+  }
+
+  select {
+    @apply bg-gray-2 py-1.5 pr-2 pl-2.5 outline-0 rounded-[5px] text-xs leading-[13px] text-text-1 font-normal;
   }
 }

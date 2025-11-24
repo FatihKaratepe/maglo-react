@@ -8,4 +8,6 @@ export * from './SearchIcon';
 export * from './SettingsIcon';
 export * from './SpinnerIcon';
 export * from './TransactionsIcon';
+export * from './WalletAddIcon';
+export * from './WalletIcon';
 export * from './WalletsIcon';

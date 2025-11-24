@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { PageTitle } from '@/components';
 import { TOKEN_NAME } from '@/helpers';
 import { Layout } from '@/layouts';
+import type { IJwtPayload } from '@/types';
 
 interface IAuthMiddlewareProps {
   children: ReactNode;
@@ -21,7 +22,7 @@ export const AuthMiddleware: FC<IAuthMiddlewareProps> = ({ children, title }) =>
       return;
     }
     try {
-      const decodedToken: any = jwtDecode(token);
+      const decodedToken: IJwtPayload = jwtDecode(token);
       const currentTime = Math.floor(Date.now() / 1000);
       console.log('exp', decodedToken.exp);
       console.log('currentTime', currentTime);

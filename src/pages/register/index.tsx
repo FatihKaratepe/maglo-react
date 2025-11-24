@@ -25,9 +25,7 @@ export default function Register() {
     registerMutate({ registerInput: data });
   };
 
-  const disableControl = useMemo(() => {
-    return isPending || isSuccess;
-  }, [isPending, isSuccess]);
+  const disableControl = useMemo(() => isPending || isSuccess, [isPending, isSuccess]);
 
   useEffect(() => {
     if (token) navigate('/');
