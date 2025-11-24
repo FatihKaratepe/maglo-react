@@ -1,11 +1,11 @@
 import type { FinancialSummary } from '@/apis';
 import { WalletAddIcon, WalletIcon } from '@/components/Icons';
-import { useMemo, type ReactNode } from 'react';
+import { useMemo, type FC, type ReactNode } from 'react';
 import { useSummary } from '../../api';
 import { SummaryCard } from './SummaryCard';
 
-export const Summary = () => {
-  const { data: summaryData, isLoading, isFetching } = useSummary();
+export const Summary: FC = () => {
+  const { data, isLoading, isFetching } = useSummary();
   const summaryLoading = useMemo(() => isLoading || isFetching, [isLoading, isFetching]);
 
   type SummaryKey = keyof Omit<FinancialSummary, 'lastUpdated'>;
@@ -30,15 +30,15 @@ export const Summary = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-[25px]">
       {summaryItems.map((item) => {
-        const data = summaryData?.data.data?.[item.key];
+        const summaryData = data?.[item.key];
         return (
           <SummaryCard
             key={item.key}
             title={item.title}
             icon={item.icon}
-            currency={data?.currency}
-            amount={data?.amount}
-            change={data?.change}
+            currency={summaryData?.currency}
+            amount={summaryData?.amount}
+            change={summaryData?.change}
             isLoading={summaryLoading}
           />
         );

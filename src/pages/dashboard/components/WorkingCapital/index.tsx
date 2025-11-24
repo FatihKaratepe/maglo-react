@@ -1,38 +1,44 @@
+import { SkeletonLine } from '@/components';
 import { CurrencyFormat } from '@/utils';
-import { type EChartsOption, init } from 'echarts';
-import { useEffect, useMemo, useRef } from 'react';
+import { init, type EChartsOption } from 'echarts';
+import { useEffect, useMemo, useRef, type FC } from 'react';
 import { useWorkingCapital } from '../../api';
 
-export const WorkingCapital = () => {
+export const WorkingCapital: FC = () => {
   const chartRef = useRef(null);
   const { data, isLoading, isFetching } = useWorkingCapital();
   const workingCapitalLoading = useMemo(() => isLoading || isFetching, [isLoading, isFetching]);
 
   useEffect(() => {
-    const currentData = data?.data.data;
-    if (!currentData) return;
-    if (!chartRef.current || currentData?.data?.length === 0) return;
+    if (!data) return;
+    if (!chartRef.current || data?.data?.length === 0) return;
 
     const myChart = init(chartRef.current, undefined, { renderer: 'svg' });
 
-    const tooltipFormatter = (params: { value: number; seriesName: string }[]) =>
-      params
+    const tooltipFormatter = (params: { value: number; seriesName: string; color: string }[]) => {
+      return params
         .map((item) => {
-          return `${item.seriesName}: ${CurrencyFormat(item.value, currentData.currency!)}`;
+          return `<div class="flex gap-2 items-center text-xs text-text-1">
+          <div class="w-2 h-2 rounded-full" style="background:${item.color}"></div>
+          <div>${item.seriesName}: ${CurrencyFormat(item.value, data.currency!)}</div>
+          </div>`;
         })
-        .join('<br/>');
+        .join('');
+    };
 
     const yAxisFormatter = (value: number) => {
-      return CurrencyFormat(value, currentData.currency!);
+      return CurrencyFormat(value, data.currency!);
     };
 
     const option: EChartsOption = {
+      textStyle: {
+        fontFamily: 'Kumbh Sans, sans-serif',
+      },
       grid: {
         top: 5,
         bottom: 0,
         left: 0,
         right: 0,
-        containLabel: true,
       },
       tooltip: {
         trigger: 'axis',
@@ -40,24 +46,38 @@ export const WorkingCapital = () => {
       },
       xAxis: {
         type: 'category',
-        data: currentData?.data?.map((item) => item.month ?? ''),
+        data: data?.data?.map((item) => item.month ?? ''),
+        boundaryGap: false,
+        splitLine: {
+          show: true,
+          lineStyle: { color: '#FFF4FE' },
+        },
       },
       yAxis: {
         type: 'value',
         axisLabel: {
           formatter: yAxisFormatter,
         },
+        splitLine: {
+          show: false,
+        },
       },
       series: [
         {
-          name: 'Gelir',
+          name: 'Income',
           type: 'line',
-          data: currentData?.data?.map((item) => item.income),
+          smooth: true,
+          data: data?.data?.map((item) => item.income),
+          lineStyle: { color: getComputedStyle(document.documentElement).getPropertyValue('--color-secondary') },
+          itemStyle: { color: getComputedStyle(document.documentElement).getPropertyValue('--color-secondary') },
         },
         {
-          name: 'Gider',
+          name: 'Expenses',
           type: 'line',
-          data: currentData?.data?.map((item) => item.expense),
+          smooth: true,
+          data: data?.data?.map((item) => item.expense),
+          lineStyle: { color: getComputedStyle(document.documentElement).getPropertyValue('--color-primary') },
+          itemStyle: { color: getComputedStyle(document.documentElement).getPropertyValue('--color-primary') },
         },
       ],
     };
@@ -65,7 +85,7 @@ export const WorkingCapital = () => {
     myChart.setOption(option);
 
     return () => myChart.dispose();
-  }, [data?.data.data]);
+  }, [data]);
 
   return (
     <div className="border border-gray-3 rounded-[10px] pt-[15px] pr-5 pb-[21px] pl-[25px] flex flex-col gap-[25px]">
@@ -85,7 +105,11 @@ export const WorkingCapital = () => {
           </select>
         </div>
       </div>
-      <div ref={chartRef} className="w-full" style={{ height: '400px' }} />
+      {workingCapitalLoading ? (
+        <SkeletonLine className="w-full h-[200px]" />
+      ) : (
+        <div ref={chartRef} className="w-full h-[200px]" />
+      )}
     </div>
   );
 };

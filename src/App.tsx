@@ -9,7 +9,7 @@ export const App = () => {
 
   return (
     <>
-      <Toaster duration={3000} position="top-right" />
+      <Toaster richColors closeButton position="top-right" />
       <Routes location={location}>
         <Route>
           {AuthRoutes.map((route, idx) => (

@@ -1,13 +1,17 @@
-import { Summary, WorkingCapital } from './components';
+import { RecentTransaction, Summary, Wallets, WorkingCapital, ScheduledTransfers } from './components';
 
 export default function Dashboard() {
   return (
-    <section className="grid grid-cols-[0.67fr_0.33fr] gap-10">
+    <section className="grid grid-cols-[2fr_1fr] gap-[39px]">
       <div className="flex flex-col gap-[30px]">
         <Summary />
         <WorkingCapital />
+        <RecentTransaction />
       </div>
-      <div></div>
+      <div className="flex flex-col gap-[30px]">
+        <Wallets />
+        <ScheduledTransfers />
+      </div>
     </section>
   );
 }

@@ -51,7 +51,7 @@
     @apply text-text-1 text-[25px] font-semibold leading-[26px];
   }
   .title-3 {
-    @apply text-text-1 text-[18px] font-semibold leading-[19px];
+    @apply text-text-1 text-[18px] font-semibold leading-[22px];
   }
   button {
     @apply disabled:cursor-not-allowed;
@@ -129,10 +129,10 @@
       @apply w-[42px] aspect-square flex items-center justify-center rounded-full text-key-black bg-gray-6 transition-colors duration-300;
     }
     .summary-card-title {
-      @apply text-sm text-text-2 font-normal leading-[15px] transition-colors duration-300;
+      @apply text-sm text-text-2 font-normal leading-[17px] transition-colors duration-300;
     }
     .summary-card-amount {
-      @apply text-2xl text-text-1 font-bold leading-[25px] transition-colors duration-300;
+      @apply text-2xl text-text-1 font-bold leading-[30px] transition-colors duration-300;
     }
 
     &:hover {
@@ -151,6 +151,24 @@
   }
 
   select {
-    @apply bg-gray-2 py-1.5 pr-2 pl-2.5 outline-0 rounded-[5px] text-xs leading-[13px] text-text-1 font-normal;
+    @apply bg-gray-2 py-1.5 pr-2 pl-2.5 outline-0 rounded-[5px] text-xs leading-[15px] text-text-1 font-normal;
+  }
+
+  .table-seperator:not(:last-of-type) {
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: var(--color-gray-3);
+      transform: translateY(17px);
+    }
+  }
+
+  .scheduled-transfer-card:not(:last-of-type) {
+    @apply pb-[15px] border-b border-gray-1;
   }
 }

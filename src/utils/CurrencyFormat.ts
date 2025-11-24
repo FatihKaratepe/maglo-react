@@ -1,10 +1,14 @@
 import { Locale } from './Locale';
 
-export const CurrencyFormat = (number: number, currency: string) => {
+export const CurrencyFormat = (
+  amount: number,
+  currency: string,
+  minimumFractionDigits: number = amount % 1 === 0 ? 0 : 2
+) => {
   return new Intl.NumberFormat(Locale(), {
     style: 'currency',
     currency,
-    minimumFractionDigits: number % 1 === 0 ? 0 : 2,
+    minimumFractionDigits: minimumFractionDigits,
     maximumFractionDigits: 2,
-  }).format(number);
+  }).format(amount);
 };

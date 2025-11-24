@@ -8,7 +8,7 @@ export const Header: FC = () => {
   const location = useLocation();
 
   const pageTitle = useMemo(() => {
-    const page = UserRoutes.find((x) => x.path === location.pathname);
+    const page = UserRoutes.find((route) => route.path === location.pathname);
     return page?.title;
   }, [location]);
 

@@ -8,7 +8,7 @@ interface ISkeletonProps {
 }
 
 export const SkeletonLine: FC<ISkeletonLineProps> = ({ className }) => {
-  return <div className={`shimmer bg-text-2 rounded-full ${className}`} />;
+  return <div className={`shimmer bg-gray-6 rounded-[10px] ${className}`} />;
 };
 
 export const Skeleton: FC<ISkeletonProps> = ({ className }) => {

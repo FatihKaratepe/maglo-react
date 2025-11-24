@@ -1,4 +1,7 @@
 export const QueryKeys = {
-  financialSummary: ['financialSummary'],
-  workingCapital: ['workingCapital'],
+  financialSummary: ['dashboardFinancialSummary'],
+  workingCapital: ['dashboardWorkingCapital'],
+  financialTransactions: ['dashboardFinancialTransactions'],
+  financialWallets: ['dashboardFinancialWallets'],
+  financialTransfersScheduled: ['dashboardFinancialTransfersScheduled'],
 };

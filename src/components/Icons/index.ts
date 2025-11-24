@@ -11,3 +11,4 @@ export * from './TransactionsIcon';
 export * from './WalletAddIcon';
 export * from './WalletIcon';
 export * from './WalletsIcon';
+export * from './ExpandIcon';

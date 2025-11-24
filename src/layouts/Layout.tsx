@@ -12,7 +12,7 @@ export const Layout: FC<ILayoutProps> = ({ children }) => {
     <div className="grid grid-cols-[250px_1fr]">
       <Sidebar />
 
-      <main className="px-[30px] py-10 overflow-x-hidden flex flex-col gap-[30px]">
+      <main className="py-[30px] px-10 overflow-x-hidden flex flex-col gap-[30px]">
         <Suspense fallback={<Loading />}>
           <Header />
           <AnimatePresence mode="wait">

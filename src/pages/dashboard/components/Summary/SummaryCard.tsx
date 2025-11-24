@@ -29,7 +29,7 @@ export const SummaryCard: FC<ISummaryCardProps> = ({ isLoading = true, title, am
       <div className="flex flex-col flex-1 gap-2.5">
         <div className="summary-card-title">{title}</div>
         {isLoading ? (
-          <SkeletonLine className="h-[25px] w-full" />
+          <SkeletonLine className="w-full h-[25px]" />
         ) : (
           <div className="summary-card-amount">{formattedCurrency}</div>
         )}

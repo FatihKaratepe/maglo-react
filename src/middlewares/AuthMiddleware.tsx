@@ -24,9 +24,6 @@ export const AuthMiddleware: FC<IAuthMiddlewareProps> = ({ children, title }) =>
     try {
       const decodedToken: IJwtPayload = jwtDecode(token);
       const currentTime = Math.floor(Date.now() / 1000);
-      console.log('exp', decodedToken.exp);
-      console.log('currentTime', currentTime);
-
       if (decodedToken.exp < currentTime) {
         localStorage.removeItem(TOKEN_NAME);
         navigate('/login');
