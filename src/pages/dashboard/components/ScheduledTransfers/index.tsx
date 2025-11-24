@@ -35,7 +35,7 @@ export const ScheduledTransfers = () => {
                 <SkeletonLine className="w-[9ch] h-5" />
               </div>
             ))
-          : data?.transfers?.map((x) => <ScheduledTransferCard data={x} />)}
+          : data?.transfers?.map((x) => <ScheduledTransferCard key={x.id} data={x} />)}
       </div>
     </div>
   );

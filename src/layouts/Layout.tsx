@@ -1,6 +1,8 @@
 import { Loading } from '@/components';
+import { useAppState } from '@/states';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Suspense, type FC } from 'react';
+import { Suspense, useEffect, type FC } from 'react';
+import { useProfile } from './api';
 import { Header, Sidebar } from './components';
 
 interface ILayoutProps {
@@ -8,12 +10,19 @@ interface ILayoutProps {
 }
 
 export const Layout: FC<ILayoutProps> = ({ children }) => {
+  const { data } = useProfile();
+  const { setUser } = useAppState();
+
+  useEffect(() => {
+    if (data) setUser(data);
+  }, [setUser, data]);
+
   return (
     <div className="grid grid-cols-[250px_1fr]">
       <Sidebar />
 
       <main className="py-[30px] px-10 overflow-x-hidden flex flex-col gap-[30px]">
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<Loading className="w-full h-full" />}>
           <Header />
           <AnimatePresence mode="wait">
             <motion.div

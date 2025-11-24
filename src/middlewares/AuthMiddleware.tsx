@@ -3,6 +3,7 @@ import { useEffect, type FC, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { PageTitle } from '@/components';
+import { AppContextProvider } from '@/contexts';
 import { TOKEN_NAME } from '@/helpers';
 import { Layout } from '@/layouts';
 import type { IJwtPayload } from '@/types';
@@ -35,9 +36,11 @@ export const AuthMiddleware: FC<IAuthMiddlewareProps> = ({ children, title }) =>
   }, [token, navigate]);
 
   return token ? (
-    <Layout>
-      <PageTitle title={`${title} | Maglo`} />
-      {children}
-    </Layout>
+    <AppContextProvider>
+      <Layout>
+        <PageTitle title={`${title} | Maglo`} />
+        {children}
+      </Layout>
+    </AppContextProvider>
   ) : null;
 };

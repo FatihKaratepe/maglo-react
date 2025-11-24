@@ -13,14 +13,14 @@
  */
 
 
-import type { Configuration } from '../configuration';
-import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
+import type { AxiosInstance, AxiosPromise, RawAxiosRequestConfig } from 'axios';
 import globalAxios from 'axios';
+import type { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, createRequestFunction, serializeDataIfNeeded, setBearerAuthToObject, setSearchParams, toPathString } from '../common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
+import { BASE_PATH, BaseAPI, RequiredError, operationServerMap, type RequestArgs } from '../base';
 // @ts-ignore
 import type { LoginInput } from '../interfaces';
 // @ts-ignore
@@ -30,13 +30,9 @@ import type { UserResponse } from '../interfaces';
 // @ts-ignore
 import type { UsersLoginPost200Response } from '../interfaces';
 // @ts-ignore
-import type { UsersLoginPost400Response } from '../interfaces';
 // @ts-ignore
-import type { UsersLoginPost401Response } from '../interfaces';
 // @ts-ignore
-import type { UsersLoginPost403Response } from '../interfaces';
 // @ts-ignore
-import type { UsersLoginPost429Response } from '../interfaces';
 // @ts-ignore
 import type { UsersRefreshTokenPost200Response } from '../interfaces';
 // @ts-ignore
@@ -268,7 +264,11 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async usersProfileGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserResponse>> {
+        async usersProfileGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{
+            'success'?: boolean;
+            'message'?: string;
+            'data'?: UserResponse;
+        }>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.usersProfileGet(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['UserApi.usersProfileGet']?.[localVarOperationServerIndex]?.url;
@@ -333,7 +333,11 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersProfileGet(options?: RawAxiosRequestConfig): AxiosPromise<UserResponse> {
+        usersProfileGet(options?: RawAxiosRequestConfig): AxiosPromise<{
+            'success'?: boolean;
+            'message'?: string;
+            'data'?: UserResponse;
+        }> {
             return localVarFp.usersProfileGet(options).then((request) => request(axios, basePath));
         },
         /**
