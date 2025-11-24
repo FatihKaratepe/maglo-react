@@ -1,24 +1,36 @@
+import type { WalletCardsInner } from '@/apis';
+import { CardChipIcon, MastercardIcon, VisaIcon, WifiIcon } from '@/components/Icons';
+import { cn } from '@/utils';
 import { type FC } from 'react';
 
-type WalletCardType = 'dark' | 'transparent';
 interface IWalletCardProps {
-  type: WalletCardType;
+  data: WalletCardsInner | undefined;
 }
 
-export const WalletCard: FC<IWalletCardProps> = ({ type }) => {
-  // const CurrentCard = useMemo(() => {
-  //     if(type === 'dark') {
-  //         return ()
-  //     }
-  // })
+export const WalletCard: FC<IWalletCardProps> = ({ data }) => {
+  const className = data?.isDefault ? 'dark-card' : cn('transparent-card');
+
   return (
-    <div className="rounded-[15px]" style={{ background: 'linear-gradient(104.3deg, #4A4A49 2.66%, #20201F 90.57%)' }}>
-      <div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae magni debitis inventore maxime excepturi
-        suscipit et odio iure qui, corrupti ad soluta est aperiam quaerat doloremque eaque aliquam nesciunt velit.
+    <div className={cn('wallet-card', className)}>
+      <div className="wallet-card-top">
+        <div className="wallet-card-header">
+          <div className="wallet-card-title">{data?.bank?.split('|')[0]}</div>
+          <div className="wallet-card-bank">{data?.bank?.split('|')[1]}</div>
+        </div>
+        <div className="wallet-card-icons">
+          <CardChipIcon className={data?.isDefault ? 'w-[30px] h-6' : 'w-10 h-[30px]'} />
+          <WifiIcon className="text-[#363B41]" />
+        </div>
+      </div>
+      <div className="wallet-card-bottom">
+        <div className="wallet-card-number">{data?.cardNumber}</div>
+        <div className="wallet-card-footer">
+          <div className="wallet-card-expire">
+            {data?.expiryMonth}/{data?.expiryYear}
+          </div>
+          <div className="wallet-card-brand">{data?.network === 'Visa' ? <VisaIcon /> : <MastercardIcon />}</div>
+        </div>
       </div>
     </div>
   );
-
-  //   return CurrentCard
 };

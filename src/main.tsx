@@ -1,3 +1,4 @@
+import { AppContextProvider } from '@/contexts';
 import { setupAxiosInterceptors, setupDayJs } from '@/helpers';
 import { Locale } from '@/utils';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -27,7 +28,9 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <App />
+        <AppContextProvider>
+          <App />
+        </AppContextProvider>
       </QueryClientProvider>
     </BrowserRouter>
   </StrictMode>

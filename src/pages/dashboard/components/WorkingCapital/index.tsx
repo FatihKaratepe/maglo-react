@@ -90,7 +90,7 @@ export const WorkingCapital: FC = () => {
   return (
     <div className="border border-gray-3 rounded-[10px] pt-[15px] pr-5 pb-[21px] pl-[25px] flex flex-col gap-[25px]">
       <div className="grid grid-cols-[1fr_338px] justify-between items-center">
-        <div className="title-3 flex-1">Working Capital</div>
+        <div className="title-3">Working Capital</div>
         <div className="flex justify-between items-center">
           <div className="flex gap-[30px]">
             <div className="inline-flex items-center gap-[9px] text-xs leading-[13px]">

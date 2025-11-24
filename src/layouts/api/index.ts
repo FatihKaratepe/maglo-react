@@ -9,6 +9,7 @@ const userApi = UserApiFactory();
 
 export const useLogout = () => {
   const navigate = useNavigate();
+
   return useMutation({
     mutationFn: userApi.usersLogoutPost,
     onSuccess: () => {

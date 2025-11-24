@@ -1,7 +1,7 @@
 import { Loading } from '@/components';
 import { useAppState } from '@/states';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Suspense, useEffect, type FC } from 'react';
+import { Suspense, useEffect, useState, type FC } from 'react';
 import { useProfile } from './api';
 import { Header, Sidebar } from './components';
 
@@ -12,6 +12,11 @@ interface ILayoutProps {
 export const Layout: FC<ILayoutProps> = ({ children }) => {
   const { data } = useProfile();
   const { setUser } = useAppState();
+  const [firstRender, setFirstRender] = useState(false);
+
+  useEffect(() => {
+    return () => setFirstRender(true);
+  }, []);
 
   useEffect(() => {
     if (data) setUser(data);
@@ -24,13 +29,13 @@ export const Layout: FC<ILayoutProps> = ({ children }) => {
       <main className="py-[30px] px-10 overflow-x-hidden flex flex-col gap-[30px]">
         <Suspense fallback={<Loading className="w-full h-full" />}>
           <Header />
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" initial={firstRender}>
             <motion.div
               key={location.pathname}
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.25, ease: 'easeOut' }}
+              exit={{ opacity: 0, x: 40 }}
+              transition={{ duration: 0.35, ease: 'easeOut' }}
               className="h-full"
             >
               {children}

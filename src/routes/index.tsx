@@ -10,12 +10,14 @@ interface IRoutes {
 
 const Login = lazy(() => import('@/pages/login'));
 const Register = lazy(() => import('@/pages/register'));
+const NotFound = lazy(() => import('@/pages/404'));
 const Dashboard = lazy(() => import('@/pages/dashboard'));
 const Transactions = lazy(() => import('@/pages/transactions'));
 
 const AuthRoutes: IRoutes[] = [
   { path: '/login', component: <Login />, title: 'Sign In' },
   { path: '/register', component: <Register />, title: 'Sign Up' },
+  { path: '*', component: <NotFound />, title: 'Page Not Found - 404' },
 ];
 
 const UserRoutes: IRoutes[] = [
