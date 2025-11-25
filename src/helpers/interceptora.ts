@@ -1,6 +1,6 @@
 import axios, { AxiosError, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios';
 import { toast } from 'sonner';
-import { getToken } from './Token';
+import { getToken } from './tokena';
 
 interface IError<T = unknown> {
   success?: boolean;

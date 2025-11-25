@@ -1,4 +1,4 @@
 export * from './ClassName';
 export * from './CurrencyFormat';
-export * from './Locale';
+export * from './Localea';
 export * from './Overflow';
