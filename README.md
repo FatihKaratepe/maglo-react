@@ -1,4 +1,4 @@
-# Maglo  React + Typescript + Vite + Bun
+# Maglo | React + Typescript + Vite + Bun
 
 ## Turkish
 
