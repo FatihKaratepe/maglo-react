@@ -32,8 +32,8 @@ export default function Register() {
   });
 
   return (
-    <section className="grid grid-cols-[17fr_15fr]">
-      <div className="pt-10">
+    <section className="grid grid-cols-1 md:grid-cols-[17fr_15fr]">
+      <div className="pt-10 h-screen">
         <div className="flex flex-col max-w-[404px] mx-auto gap-[157.5px] h-full justify-center">
           <div className="fixed top-10">
             <img src={MagloLogo} alt="Maglo Logo" />
@@ -115,7 +115,7 @@ export default function Register() {
           </div>
         </div>
       </div>
-      <img src={LoginBg} className="w-full h-screen object-cover" alt="" />
+      <img src={LoginBg} className="w-full h-screen object-cover hidden md:block" />
     </section>
   );
 }

@@ -1,4 +1,4 @@
-import { SkeletonLine } from '@/components';
+import { EllipsisTooltip, SkeletonLine } from '@/components';
 import { CurrencyFormat } from '@/utils';
 import { useMemo, type FC, type ReactNode } from 'react';
 
@@ -24,14 +24,14 @@ export const SummaryCard: FC<ISummaryCardProps> = ({ isLoading = true, title, am
   }, [amount, currency]);
 
   return (
-    <div className="summary-card">
+    <div className="summary-card overflow-hidden">
       <div className="summary-card-icon">{icon}</div>
-      <div className="flex flex-col flex-1 gap-2.5">
-        <div className="summary-card-title">{title}</div>
+      <div className="flex flex-col flex-1 gap-2.5 overflow-hidden">
+        <div className="summary-card-title whitespace-nowrap">{title}</div>
         {isLoading ? (
           <SkeletonLine className="w-full h-[25px]" />
         ) : (
-          <div className="summary-card-amount">{formattedCurrency}</div>
+          <EllipsisTooltip className="summary-card-amount" text={formattedCurrency} />
         )}
       </div>
     </div>

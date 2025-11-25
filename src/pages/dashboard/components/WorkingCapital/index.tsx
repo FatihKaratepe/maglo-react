@@ -1,5 +1,6 @@
 import { SkeletonLine } from '@/components';
-import { CurrencyFormat } from '@/utils';
+import { CurrencyFormat, Locale } from '@/utils';
+import dayjs from 'dayjs';
 import { init, type EChartsOption } from 'echarts';
 import { useEffect, useMemo, useRef, type FC } from 'react';
 import { useWorkingCapital } from '../../api';
@@ -14,6 +15,11 @@ export const WorkingCapital: FC = () => {
     if (!chartRef.current || data?.data?.length === 0) return;
 
     const myChart = init(chartRef.current, undefined, { renderer: 'svg' });
+
+    const handleResize = () => {
+      myChart.resize();
+    };
+    window.addEventListener('resize', handleResize);
 
     const tooltipFormatter = (params: { value: number; seriesName: string; color: string }[]) => {
       return params
@@ -46,7 +52,7 @@ export const WorkingCapital: FC = () => {
       },
       xAxis: {
         type: 'category',
-        data: data?.data?.map((item) => item.month ?? ''),
+        data: data?.data?.map((item) => dayjs(item.month, 'MMMM', 'tr').locale(Locale()).format('MMMM') ?? ''),
         boundaryGap: false,
         splitLine: {
           show: true,
@@ -84,15 +90,18 @@ export const WorkingCapital: FC = () => {
 
     myChart.setOption(option);
 
-    return () => myChart.dispose();
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      myChart.dispose();
+    };
   }, [data]);
 
   return (
     <div className="border border-gray-3 rounded-[10px] pt-[15px] pr-5 pb-[21px] pl-[25px] flex flex-col gap-[25px]">
-      <div className="grid grid-cols-[1fr_338px] justify-between items-center">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_280px] lg:grid-cols-[1fr_338px] justify-between items-center">
         <div className="title-3">Working Capital</div>
         <div className="flex justify-between items-center">
-          <div className="flex gap-[30px]">
+          <div className="flex gap-5 md:gap-[30px]">
             <div className="inline-flex items-center gap-[9px] text-xs leading-[13px]">
               <span className="inline-block w-2 h-2 rounded-full bg-secondary" /> Income
             </div>

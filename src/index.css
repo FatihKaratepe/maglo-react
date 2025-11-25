@@ -123,10 +123,10 @@
   }
 
   .summary-card {
-    @apply flex items-center py-6 px-5 gap-[15px] rounded-[10px] bg-gray-2 transition-colors duration-300;
+    @apply grid grid-cols-[42px_1fr] items-center py-6 px-5 gap-[15px] rounded-[10px] bg-gray-2 transition-colors duration-300;
 
     .summary-card-icon {
-      @apply w-[42px] aspect-square flex items-center justify-center rounded-full text-key-black bg-gray-6 transition-colors duration-300;
+      @apply w-full aspect-square flex items-center justify-center rounded-full text-key-black bg-gray-6 transition-colors duration-300;
     }
     .summary-card-title {
       @apply text-sm text-text-2 font-normal leading-[17px] transition-colors duration-300;
@@ -208,14 +208,14 @@
       @apply flex flex-col;
 
       .wallet-card-number {
-        @apply font-bold leading-6;
+        @apply font-bold;
       }
 
       .wallet-card-footer {
         @apply flex justify-between items-start h-9;
 
         .wallet-card-expire {
-          @apply font-medium text-sm leading-5;
+          @apply font-medium;
         }
       }
     }
@@ -232,7 +232,7 @@
             @apply text-white;
 
             &::after {
-              background: #626261;
+              @apply bg-[#626261];
             }
           }
 
@@ -246,12 +246,12 @@
         @apply gap-2;
 
         .wallet-card-number {
-          @apply text-white text-[17px] tracking-[10%];
+          @apply text-white text-[17px] tracking-[1.7px] leading-6;
         }
 
         .wallet-card-footer {
           .wallet-card-expire {
-            @apply text-[#868685] tracking-[2%];
+            @apply text-sm text-[#868685] tracking-[0.24px] leading-5;
           }
         }
       }
@@ -284,7 +284,7 @@
             @apply text-white;
 
             &::after {
-              background: var(--color-gray-3);
+              @apply bg-gray-3;
             }
           }
 
@@ -298,15 +298,30 @@
         @apply gap-[5px];
 
         .wallet-card-number {
-          @apply text-text-1 text-base tracking-[1.6px];
+          @apply text-text-1 text-base tracking-[1.6px] leading-[23px];
         }
 
         .wallet-card-footer {
           .wallet-card-expire {
-            @apply text-[#868685] tracking-[0.24px];
+            @apply text-xs text-[#868685] tracking-[0.24px] leading-[17px];
           }
         }
       }
     }
+  }
+  .dropdown-button {
+    @apply w-full text-left px-4 py-3 hover:bg-gray-100 transition cursor-pointer flex items-center gap-1 font-medium text-text-1;
+  }
+
+  .menu-toggle.open span:nth-child(1) {
+    @apply translate-y-2 rotate-45;
+  }
+
+  .menu-toggle.open span:nth-child(2) {
+    @apply opacity-0;
+  }
+
+  .menu-toggle.open span:nth-child(3) {
+    @apply -translate-y-2 -rotate-45;
   }
 }
