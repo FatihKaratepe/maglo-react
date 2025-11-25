@@ -19,7 +19,7 @@ export const NonAuthLayout: FC<ILayoutProps> = ({ children, title }) => {
   return (
     <>
       <PageTitle title={`${title} | Maglo`} />
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<Loading className="w-full h-screen" />}>
         <div className="h-full overflow-y-hidden">
           <AnimatePresence mode="wait" initial={firstRender}>
             <motion.div

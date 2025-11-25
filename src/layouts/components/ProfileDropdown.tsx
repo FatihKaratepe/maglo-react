@@ -54,7 +54,7 @@ export const ProfileDropdown = () => {
       <div
         className={`
           absolute right-0 mt-2 w-48 rounded-xl bg-white shadow-xl border border-gray-3 overflow-hidden
-          transition-all origin-top-right
+          transition-all origin-top-right z-5
           ${
             open
               ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto'

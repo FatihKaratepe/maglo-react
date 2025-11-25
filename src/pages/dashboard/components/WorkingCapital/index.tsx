@@ -15,7 +15,6 @@ export const WorkingCapital: FC = () => {
     if (!chartRef.current || data?.data?.length === 0) return;
 
     const myChart = init(chartRef.current, undefined, { renderer: 'svg' });
-
     const handleResize = () => {
       myChart.resize();
     };

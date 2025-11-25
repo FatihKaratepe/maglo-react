@@ -30,8 +30,8 @@ export const Layout: FC<ILayoutProps> = ({ children }) => {
       <div className="grid grid-cols-1 md:grid-cols-[25fr_119fr]">
         <Sidebar />
 
-        <main className="py-[30px] px-10 overflow-x-hidden flex flex-col gap-[30px]">
-          <Suspense fallback={<Loading className="w-screen h-screen md:w-full md:h-full" />}>
+        <main className="flex flex-col overflow-x-hidden gap-[30px] py-[30px] px-5 sm:px-10">
+          <Suspense fallback={<Loading className="w-full h-screen" />}>
             <Header />
             <AnimatePresence mode="wait" initial={firstRender}>
               <motion.div
@@ -51,7 +51,7 @@ export const Layout: FC<ILayoutProps> = ({ children }) => {
       <button
         id="menuToggle"
         className={cn(
-          'flex md:hidden bg-white rounded-full w-12 h-12 fixed z-11 bottom-5 right-5 cursor-pointer shadow-md items-center justify-center border border-gray-3'
+          'flex md:hidden bg-white rounded-full w-12 h-12 fixed z-11 bottom-5 right-5 cursor-pointer shadow-xl items-center justify-center border border-gray-300'
         )}
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
