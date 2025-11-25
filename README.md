@@ -35,7 +35,7 @@ bun run dev #projeyi development environmentinde çalıştırır ve 5173 portund
 `package.json` içerisindeki harici gereklilikler şunlar:
 
 ```json
-"@hookform/resolvers": "^5.2.2", /* react-hook-form ve zod paketlerini entegre kullanabilme imkanı sağlar */
+"@hookform/resolvers": "^5.2.2", // react-hook-form ve zod paketlerini entegre kullanabilme imkanı sağlar
 "@tailwindcss/vite": "^4.1.17", // tailwind 4 ile birlikte gelen vite eklentisi
 "@tanstack/react-query": "^5.62.7", // http isteklerini yönetme imkanı sağlar
 "axios": "^1.13.2", // http isteklerini atma konusunda kolaylık sağlar (openapi-generator'a istek yöneticisi olarak axios tanımlayıp çalıştırdığım için de gerekli)
