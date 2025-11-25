@@ -1,4 +1,4 @@
-import { EllipsisTooltip, SkeletonLine } from '@/components';
+import { EllipsisTooltip, ErrorCard, SkeletonLine } from '@/components';
 import { CurrencyFormat } from '@/utils';
 import { useMemo, type FC, type ReactNode } from 'react';
 
@@ -13,11 +13,12 @@ interface IFinancialSummary {
 
 interface ISummaryCardProps extends IFinancialSummary {
   isLoading: boolean;
+  isError: boolean;
   title: string;
   icon: ReactNode;
 }
 
-export const SummaryCard: FC<ISummaryCardProps> = ({ isLoading = true, title, amount, currency, icon }) => {
+export const SummaryCard: FC<ISummaryCardProps> = ({ isLoading = true, isError, title, amount, currency, icon }) => {
   const formattedCurrency = useMemo(() => {
     if (!amount || !currency) return '';
     return CurrencyFormat(amount, currency);
@@ -30,6 +31,8 @@ export const SummaryCard: FC<ISummaryCardProps> = ({ isLoading = true, title, am
         <div className="summary-card-title whitespace-nowrap">{title}</div>
         {isLoading ? (
           <SkeletonLine className="w-full h-[25px]" />
+        ) : isError ? (
+          <ErrorCard className="w-full h-[25px]" />
         ) : (
           <EllipsisTooltip className="summary-card-amount" text={formattedCurrency} />
         )}

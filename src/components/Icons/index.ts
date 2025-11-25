@@ -3,6 +3,7 @@ export * from './CardChipIcon';
 export * from './CloseIcon';
 export * from './DashboardIcon';
 export * from './DropdownIcon';
+export * from './ExclamationIcon';
 export * from './ExpandIcon';
 export * from './HelpIcon';
 export * from './InvoicesIcon';

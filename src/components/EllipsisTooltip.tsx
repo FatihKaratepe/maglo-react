@@ -32,7 +32,8 @@ export const EllipsisTooltip: React.FC<IEllipsisTooltipProps> = ({ text, classNa
       motion={{ motionName: 'rc-tooltip-zoom' }}
       placement="bottom"
       showArrow
-      align={{ offset: [0, 25] }}
+      align={{ offset: [0, 20] }}
+      classNames={{ root: '[&_.rc-tooltip-arrow]:top-1!' }}
     >
       <div ref={textRef} className={cn('truncate', className)}>
         {text}

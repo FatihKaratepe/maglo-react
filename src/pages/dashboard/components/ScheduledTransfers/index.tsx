@@ -1,4 +1,4 @@
-import { SkeletonLine } from '@/components';
+import { SkeletonList } from '@/components';
 import { ExpandIcon } from '@/components/Icons';
 import { useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -22,20 +22,11 @@ export const ScheduledTransfers = () => {
         </NavLink>
       </div>
       <div className="flex flex-col gap-3">
-        {financialTransfersScheduledLoading
-          ? [0, 1, 2, 3, 4].map((x) => (
-              <div key={String(x)} className="flex items-center justify-between scheduled-transfer-card">
-                <div className="flex items-center gap-[15px]">
-                  <SkeletonLine className="w-[33px] h-[33px] rounded-full" />
-                  <div className="flex flex-col gap-[7px]">
-                    <SkeletonLine className="w-[12ch] h-[17px]" />
-                    <SkeletonLine className="w-[17ch] h-[15px]" />
-                  </div>
-                </div>
-                <SkeletonLine className="w-[9ch] h-5" />
-              </div>
-            ))
-          : data?.transfers?.map((x) => <ScheduledTransferCard key={x.id} data={x} />)}
+        {financialTransfersScheduledLoading ? (
+          <SkeletonList count={5} skeletonClassName="h-[39px]" className="scheduled-transfer-card" />
+        ) : (
+          data?.transfers?.map((x) => <ScheduledTransferCard key={x.id} data={x} />)
+        )}
       </div>
     </div>
   );

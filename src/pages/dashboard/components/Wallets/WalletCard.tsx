@@ -8,7 +8,7 @@ interface IWalletCardProps {
 }
 
 export const WalletCard: FC<IWalletCardProps> = ({ data }) => {
-  const className = data?.isDefault ? 'dark-card' : cn('transparent-card');
+  const className = data?.isDefault ? 'dark-card' : 'transparent-card';
   const bankInfo = useMemo(() => {
     if (data && data.bank) {
       const [title, bankName] = data.bank.split('|');

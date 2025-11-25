@@ -1,26 +1,49 @@
-import type { FC } from 'react';
+import { cn } from '@/utils';
+import { Fragment, type FC } from 'react';
 
 interface ISkeletonLineProps {
   className?: string;
 }
-interface ISkeletonProps {
+
+const SkeletonLine: FC<ISkeletonLineProps> = ({ className }) => {
+  return <div className={cn('shimmer bg-gray-6 rounded-[10px]', className)} />;
+};
+
+interface ISkeletonTableProps {
+  count: number;
+  colSpan: number;
+  skeletonClassName: string;
+}
+
+const SkeletonTable: FC<ISkeletonTableProps> = ({ count, colSpan, skeletonClassName }) => {
+  return (
+    <>
+      {Array.from({ length: count }).map((_, i) => (
+        <Fragment key={String(i)}>
+          <tr className="table-seperator">
+            <td colSpan={colSpan}>
+              <SkeletonLine className={cn('w-full', skeletonClassName)} />
+            </td>
+          </tr>
+          {i !== count - 1 && <tr />}
+        </Fragment>
+      ))}
+    </>
+  );
+};
+
+interface ISkeletonListProps {
+  count: number;
+  skeletonClassName: string;
   className?: string;
 }
 
-export const SkeletonLine: FC<ISkeletonLineProps> = ({ className }) => {
-  return <div className={`shimmer bg-gray-6 rounded-[10px] ${className}`} />;
+const SkeletonList: FC<ISkeletonListProps> = ({ count, skeletonClassName, className }) => {
+  return Array.from({ length: count }).map((_, i) => (
+    <div className={className}>
+      <SkeletonLine key={String(i)} className={cn('w-full', skeletonClassName)} />
+    </div>
+  ));
 };
 
-export const Skeleton: FC<ISkeletonProps> = ({ className }) => {
-  return (
-    <div role="status" className={className}>
-      <SkeletonLine className="h-2.5 w-48 mb-4" />
-      <SkeletonLine className="shimmer h-2 max-w-[360px] mb-2.5" />
-      <SkeletonLine className="shimmer h-2 mb-2.5" />
-      <SkeletonLine className="shimmer h-2 max-w-[330px] mb-2.5" />
-      <SkeletonLine className="shimmer h-2 max-w-[300px] mb-2.5" />
-      <SkeletonLine className="shimmer h-2 max-w-[360px]" />
-      <span className="sr-only">Loading...</span>
-    </div>
-  );
-};
+export { SkeletonLine, SkeletonList, SkeletonTable };

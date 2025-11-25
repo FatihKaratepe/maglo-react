@@ -20,7 +20,7 @@ export const RecentTransaction: FC = () => {
           <ExpandIcon className="-rotate-90" />
         </NavLink>
       </div>
-      <TransactionsTable loading={financialTransactionsLoading} data={data?.transactions} />
+      <TransactionsTable loading={financialTransactionsLoading} data={data?.transactions} loadingCount={3} />
     </div>
   );
 };

@@ -5,7 +5,7 @@ import { useSummary } from '../../api';
 import { SummaryCard } from './SummaryCard';
 
 export const Summary: FC = () => {
-  const { data, isLoading, isFetching } = useSummary();
+  const { data, isLoading, isFetching, isError } = useSummary();
   const summaryLoading = useMemo(() => isLoading || isFetching, [isLoading, isFetching]);
 
   type SummaryKey = keyof Omit<FinancialSummary, 'lastUpdated'>;
@@ -40,6 +40,7 @@ export const Summary: FC = () => {
             amount={summaryData?.amount}
             change={summaryData?.change}
             isLoading={summaryLoading}
+            isError={isError}
           />
         );
       })}

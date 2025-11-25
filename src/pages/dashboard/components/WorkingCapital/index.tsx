@@ -1,4 +1,4 @@
-import { SkeletonLine } from '@/components';
+import { ErrorCard, SkeletonLine } from '@/components';
 import { CurrencyFormat, Locale } from '@/utils';
 import dayjs from 'dayjs';
 import { init, type EChartsOption } from 'echarts';
@@ -7,7 +7,7 @@ import { useWorkingCapital } from '../../api';
 
 export const WorkingCapital: FC = () => {
   const chartRef = useRef(null);
-  const { data, isLoading, isFetching } = useWorkingCapital();
+  const { data, isLoading, isFetching, isError } = useWorkingCapital();
   const workingCapitalLoading = useMemo(() => isLoading || isFetching, [isLoading, isFetching]);
 
   useEffect(() => {
@@ -115,6 +115,8 @@ export const WorkingCapital: FC = () => {
       </div>
       {workingCapitalLoading ? (
         <SkeletonLine className="w-full h-[200px]" />
+      ) : isError ? (
+        <ErrorCard className="w-full h-[200px]" />
       ) : (
         <div ref={chartRef} className="w-full h-[200px]" />
       )}
