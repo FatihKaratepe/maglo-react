@@ -1,4 +1,4 @@
-import { Locale } from './Localea';
+import { Locale } from './Locale';
 
 export const CurrencyFormat = (
   amount: number,
