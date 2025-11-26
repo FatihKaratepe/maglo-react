@@ -17,10 +17,6 @@ export default function Login() {
   const { control, handleSubmit } = useForm<LoginInput>({
     resolver: zodResolver(LoginSchema),
     mode: 'onSubmit',
-    defaultValues: {
-      email: 'romibix279@aikunkun.com',
-      password: '123456Apc.',
-    },
   });
 
   const { mutate: loginMutate, isPending, isSuccess } = useLogin();

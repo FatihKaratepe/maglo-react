@@ -86,7 +86,11 @@ export default function Register() {
                 )}
               />
               <div className="flex flex-col mt-2.5 gap-[15px]">
-                <button className="primary-button" type="submit" disabled={disableControl}>
+                <button
+                  className="primary-button flex items-center gap-2 justify-center"
+                  type="submit"
+                  disabled={disableControl}
+                >
                   Create Account
                   {disableControl && <SpinnerIcon className="w-4 h-4" />}
                 </button>
