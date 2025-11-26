@@ -14,6 +14,8 @@ const NotFound = lazy(() => import('@/pages/404'));
 const Dashboard = lazy(() => import('@/pages/dashboard'));
 const Transactions = lazy(() => import('@/pages/transactions'));
 const Wallets = lazy(() => import('@/pages/wallets'));
+const Settings = lazy(() => import('@/pages/settings'));
+const Invoices = lazy(() => import('@/pages/invoices'));
 
 const AuthRoutes: IRoutes[] = [
   { path: '/login', component: <Login />, title: 'Sign In' },
@@ -24,9 +26,9 @@ const AuthRoutes: IRoutes[] = [
 const UserRoutes: IRoutes[] = [
   { path: '/', component: <Dashboard />, title: 'Dashboard', icon: <DashboardIcon /> },
   { path: '/transactions', component: <Transactions />, title: 'Transactions', icon: <TransactionsIcon /> },
-  { path: '/invoices', component: <></>, title: 'Invoices', icon: <InvoicesIcon /> },
+  { path: '/invoices', component: <Invoices />, title: 'Invoices', icon: <InvoicesIcon /> },
   { path: '/my-wallets', component: <Wallets />, title: 'My Wallets', icon: <WalletsIcon /> },
-  { path: '/settings', component: <></>, title: 'Settings', icon: <SettingsIcon /> },
+  { path: '/settings', component: <Settings />, title: 'Settings', icon: <SettingsIcon /> },
 ];
 
 export { AuthRoutes, UserRoutes };
