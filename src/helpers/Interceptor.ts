@@ -6,6 +6,11 @@ interface IError<T = unknown> {
   success?: boolean;
   message?: string;
   data?: T;
+  details?: {
+    field: string;
+    message: string;
+    code: string;
+  }[];
 }
 
 export const setupAxiosInterceptors = () => {
@@ -34,6 +39,11 @@ export const setupAxiosInterceptors = () => {
     },
     (error: AxiosError<IError>) => {
       toast.error(error.response?.data.message);
+      if (error.response?.data.details) {
+        error.response?.data.details.forEach((errorDetail) => {
+          toast.error(errorDetail.message);
+        });
+      }
       return Promise.reject(error);
     }
   );
