@@ -2,6 +2,9 @@
 
 ## Turkish
 
+### Canlı Demo
+https://beautiful-gaufre-50d38e.netlify.app/
+
 ### Proje Hakkında
 
 Proje en yaygın javascript runtime'ı olan [Node.js](https://nodejs.org/) üzerinde değil ona alternatif bir runtime olan [Bun](https://bun.com/) üzerinde geliştirilmiştir.
@@ -60,6 +63,9 @@ Gereklilik olarak belirtilen `skeleton loading` dışında proje içerisinde bir
 * Spinner: buton içerisinde ve React'a ait `Suspense` etiketlerinin `fallback` alanında kullanıldı. Sayfa geçişleri esnasında görünen spinner loading bahsedilen `Suspense` etiketi sayesinde gerçekleşmektedir. Bunun sebebi iste `lazy loading` olan sayfaların dinamik olarak import edilmesinin beklenmesidir.
 
 ## English
+
+### Live Demo
+https://beautiful-gaufre-50d38e.netlify.app/
 
 ### About the Project
 
