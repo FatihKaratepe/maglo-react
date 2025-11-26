@@ -51,6 +51,7 @@ export default function Register() {
                 name="fullName"
                 render={({ field, fieldState: { error }, inputId }) => (
                   <Input
+                    disabled={disableControl}
                     id={inputId}
                     value={field.value ?? ''}
                     onChange={(e) => field.onChange(e.target.value)}
@@ -64,6 +65,7 @@ export default function Register() {
                 name="email"
                 render={({ field, fieldState: { error }, inputId }) => (
                   <Input
+                    disabled={disableControl}
                     id={inputId}
                     value={field.value ?? ''}
                     onChange={(e) => field.onChange(e.target.value)}
@@ -77,6 +79,7 @@ export default function Register() {
                 name="password"
                 render={({ field, fieldState: { error }, inputId }) => (
                   <Input
+                    disabled={disableControl}
                     id={inputId}
                     type="password"
                     value={field.value ?? ''}
