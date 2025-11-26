@@ -40,7 +40,7 @@ interface ISkeletonListProps {
 
 const SkeletonList: FC<ISkeletonListProps> = ({ count, skeletonClassName, className }) => {
   return Array.from({ length: count }).map((_, i) => (
-    <div className={className}>
+    <div key={String(i)} className={className}>
       <SkeletonLine key={String(i)} className={cn('w-full', skeletonClassName)} />
     </div>
   ));
