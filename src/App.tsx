@@ -8,7 +8,7 @@ export const App = () => {
   const location = useLocation();
 
   return (
-    <div className="w-full xl:max-w-[1440px] xl:mx-auto">
+    <>
       <Toaster richColors closeButton position="top-right" />
       <Routes location={location}>
         <Route>
@@ -30,6 +30,6 @@ export const App = () => {
           ))}
         </Route>
       </Routes>
-    </div>
+    </>
   );
 };

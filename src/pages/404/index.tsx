@@ -1,17 +1,7 @@
 import { DashboardIcon } from '@/components/Icons';
-import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 export default function NotFound() {
-  useEffect(() => {
-    const mainLayout = document.getElementById('main-layout');
-    if (mainLayout?.classList.contains('xl:max-w-[1440px]')) {
-      mainLayout?.classList.remove('xl:max-w-[1440px]');
-    }
-
-    return () => mainLayout?.classList.add('xl:max-w-[1440px]');
-  }, []);
-
   return (
     <div className="grid min-h-screen place-items-center px-6 py-24 sm:py-32 lg:px-8">
       <div className="text-center">
